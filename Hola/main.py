@@ -128,6 +128,7 @@ class Simulacion:
 
     def tick(self):
         self.hora += timedelta(minutes=1)
+        print(self.hora)
         if self.hora.hour == 0 and self.hora.day > 1:
             self.casino.ganancias.append(self.casino.dinero_por_dia)
             self.casino.dinero_por_dia = 0
@@ -144,32 +145,37 @@ class Simulacion:
             self.casino.personal.values()) + list(
             self.casino.clientes.values()) + list(
             self.casino.instalaciones.values())))
+        print("agre cliente")
         if prob_valor(par.p):
             self.add_client()
+        print("cliente_agrergado")
         for i in self.casino.personal.values():
             i.tick(self.hora)
+        print("tick personal listo")
         for i in self.casino.instalaciones.values():
             i.tick(self.hora)
+        print("ticks listos :D", self.hora.minute)
         if self.hora.minute == 0:
             print(f"Día {self.hora.day} {str(self.hora)[11:]}")
 
         for i in self.casino.clientes.values():
-            #print(i, len(self.casino.clientes))
+            print(i, len(self.casino.clientes))
             if not i.fuera:
-                #print("fuera")
+                print("fuera")
                 i.tick()
-                #print("tick")
-                #print("siguiente_accion 0")
+                print("tick")
+                print("siguiente_accion 0")
                 self.casino.siguiente_accion(i)
-                #print("siguiente_accion 1")
+                print("siguiente_accion 1")
                 if i.accion:
-                    #print("mover_cliente 0")
+                    print("mover_cliente 0")
+                    print(i.destino, i.x, i.y, self.casino.camino(i))
                     self.casino.mover_cliente(i, self.casino.camino(i))
-                #print("mover_cliente 1")
+                print("mover_cliente 1")
             if not i.fuera and i.accion:
-                #print("realizar accion 0")
+                print("realizar accion 0")
                 self.casino.realizar_accion(i)
-                #print("realizar_accion 1")
+                print("realizar_accion 1")
 
     def marcar_mapeo(self):
         for i in range(0, len(self.casino.espacios_ocupados), 2):
@@ -267,8 +273,8 @@ class Simulacion:
                                                 razon_descubierto)) * 100, 2)
             porcentaje_descubierto = 100 - porcentaje_voluntario
         ocho = ("8. Los porcentajes de salida del casino son:" + \
-                f"\n   * Retiro voluntario: {porcentaje_voluntario}%\n" + \
-                f"\n  * Retiro por predecir: {porcentaje_descubierto}%")
+                f"\n   * Retiro voluntario: {porcentaje_voluntario}%" + \
+                f"\n   * Retiro por predecir: {porcentaje_descubierto}%")
         print(ocho)
         nueve = ("9. Los minutos sin funcionar de cada instalacion " \
                     "corresponden a:")
@@ -305,10 +311,9 @@ class Simulacion:
             archivo.close()
             print("Datos guardados con éxito :D")
         else:
-            archivo = open(ruta, encoding="uff-8", mode="w")
+            archivo = open(ruta, mode="w")
             archivo.close()
             archivo = open(ruta, encoding="utf-8", mode="a")
-            print(lineas)
             archivo.write(hoy)
             archivo.write("\n")
             for i in lineas:

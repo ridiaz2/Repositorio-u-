@@ -1023,6 +1023,7 @@ class Instalacion(Building):
         self.add_decoration("gui/assets/decoration/transparent.png")
         self.clientes = deque()
         self.tiempo_sin_funcionar = 0
+        self.add_decoration("gui/assets/decoration/transparent.png")
         if self.tipo == "restobar":
             self.ancho = 158
             self.alto = 170
@@ -1110,13 +1111,17 @@ class Instalacion(Building):
         return sum([1 for i in self.personal if self.personal[i].activo])
 
     def tick(self, hora_actual):
+        print("error en Instalación")
         if not self.disponible:
             self.tiempo_sin_funcionar += 1
+        print("bien primero")
         if self.tipo == "tarot":
             for i in self.personal.values():
                 if hora_actual == i.trabajo:
                     self.add_decoration(None)
+                    self.add_decoration("gui/assets/decoration/transparent.png")
                 elif hora_actual == i.descanso:
+                    self.add_decoration(None)
                     self.add_decoration("gui/assets/decoration/green2.png")
 
     def __repr__(self):
