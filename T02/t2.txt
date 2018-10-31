@@ -1,0 +1,61 @@
+1026 : self.add_decoration("gui/assets/decoration/transparent.png")
+
+1120 : self.add_decoration("gui/assets/decoration/transparent.png")
+                
+1122 : self.add_decoration(None)
+
+308 EN MAIN
+borrar encoding
+
+5,07
+6
+6,27
+
+
+En classes.py:
+En línea(201): En vez de accion_retirada -> razon_retirada
+'''
+            cliente.razon_retirada = "retiro"
+'''
+En la linea (1026) debería aparecer lo siguiente:
+'''
+        self.add_decoration("gui/assets/decoration/transparent.png")
+'''
+Es decir, quedar (1025 - 1029)
+'''
+        self.tiempo_sin_funcionar = 0
+        self.add_decoration("gui/assets/decoration/transparent.png")
+        if self.tipo == "restobar":
+            self.ancho = 158
+            self.alto = 170
+'''
+
+En la línea (1122)
+'''
+                    self.add_decoration("gui/assets/decoration/transparent.png")
+'''
+Y en la (1124)
+'''
+                    self.add_decoration(None)
+'''
+
+Es decir (1119 - 1125):
+'''
+            for i in self.personal.values():
+                if hora_actual == i.trabajo:
+                    self.add_decoration(None)
+                    self.add_decoration("gui/assets/decoration/transparent.png")
+                elif hora_actual == i.descanso:
+                    self.add_decoration(None)
+                    self.add_decoration("gui/assets/decoration/green2.png")
+'''
+
+En línea (314) de main.py:
+borrar encoding="utf-8" ya que este da error:
+'''
+        else:
+            archivo = open(ruta, mode="w")
+            archivo.close()
+            archivo = open(ruta, encoding="utf-8", mode="a")
+'''
+
